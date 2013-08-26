@@ -99,9 +99,9 @@ pub fn ortho<T:Clone + Float>(left: T, right: T, bottom: T, top: T, near: T, far
 }
 
 pub trait Projection<T> {
-    pub fn if_valid<U:Clone>(&self, f: &fn() -> U) -> Result<U, ~str>;
-    pub fn to_mat4(&self) -> Result<Mat4<T>, ~str>;
-    pub fn to_frustum(&self) -> Result<Frustum<T>, ~str>;
+    fn if_valid<U:Clone>(&self, &fn() -> U) -> Result<U, ~str>;
+    fn to_mat4(&self) -> Result<Mat4<T>, ~str>;
+    fn to_frustum(&self) -> Result<Frustum<T>, ~str>;
 }
 
 /// A symmetrical perspective projection based on a field-of-view angle

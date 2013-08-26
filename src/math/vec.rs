@@ -23,86 +23,86 @@ pub trait Vec<T,Slice>: Dimensioned<T,Slice>
 
 /// Vectors with numeric components
 pub trait NumVec<T,Slice>: Neg<T> {
-    pub fn add_s(&self, value: T) -> Self;
-    pub fn sub_s(&self, value: T) -> Self;
-    pub fn mul_s(&self, value: T) -> Self;
-    pub fn div_s(&self, value: T) -> Self;
-    pub fn rem_s(&self, value: T) -> Self;
+    fn add_s(&self, value: T) -> Self;
+    fn sub_s(&self, value: T) -> Self;
+    fn mul_s(&self, value: T) -> Self;
+    fn div_s(&self, value: T) -> Self;
+    fn rem_s(&self, value: T) -> Self;
 
-    pub fn add_v(&self, other: &Self) -> Self;
-    pub fn sub_v(&self, other: &Self) -> Self;
-    pub fn mul_v(&self, other: &Self) -> Self;
-    pub fn div_v(&self, other: &Self) -> Self;
-    pub fn rem_v(&self, other: &Self) -> Self;
+    fn add_v(&self, other: &Self) -> Self;
+    fn sub_v(&self, other: &Self) -> Self;
+    fn mul_v(&self, other: &Self) -> Self;
+    fn div_v(&self, other: &Self) -> Self;
+    fn rem_v(&self, other: &Self) -> Self;
 
-    pub fn neg_self(&mut self);
-    pub fn add_self_s(&mut self, value: T);
-    pub fn sub_self_s(&mut self, value: T);
-    pub fn mul_self_s(&mut self, value: T);
-    pub fn div_self_s(&mut self, value: T);
-    pub fn rem_self_s(&mut self, value: T);
+    fn neg_self(&mut self);
+    fn add_self_s(&mut self, value: T);
+    fn sub_self_s(&mut self, value: T);
+    fn mul_self_s(&mut self, value: T);
+    fn div_self_s(&mut self, value: T);
+    fn rem_self_s(&mut self, value: T);
 
-    pub fn add_self_v(&mut self, other: &Self);
-    pub fn sub_self_v(&mut self, other: &Self);
-    pub fn mul_self_v(&mut self, other: &Self);
-    pub fn div_self_v(&mut self, other: &Self);
-    pub fn rem_self_v(&mut self, other: &Self);
+    fn add_self_v(&mut self, other: &Self);
+    fn sub_self_v(&mut self, other: &Self);
+    fn mul_self_v(&mut self, other: &Self);
+    fn div_self_v(&mut self, other: &Self);
+    fn rem_self_v(&mut self, other: &Self);
 
-    pub fn dot(&self, other: &Self) -> T;
+    fn dot(&self, other: &Self) -> T;
 
-    pub fn comp_add(&self) -> T;
-    pub fn comp_mul(&self) -> T;
+    fn comp_add(&self) -> T;
+    fn comp_mul(&self) -> T;
 }
 
 /// Vectors with floating point components
 pub trait FloatVec<T,Slice>: NumVec<T,Slice> + ApproxEq<T> {
-    pub fn magnitude2(&self) -> T;
-    pub fn magnitude(&self) -> T;
-    pub fn angle(&self, other: &Self) -> T;
-    pub fn normalize(&self) -> Self;
-    pub fn normalize_to(&self, magnitude: T) -> Self;
-    pub fn lerp(&self, other: &Self, amount: T) -> Self;
-    pub fn normalize_self(&mut self);
-    pub fn normalize_self_to(&mut self, magnitude: T);
-    pub fn lerp_self(&mut self, other: &Self, amount: T);
+    fn magnitude2(&self) -> T;
+    fn magnitude(&self) -> T;
+    fn angle(&self, other: &Self) -> T;
+    fn normalize(&self) -> Self;
+    fn normalize_to(&self, magnitude: T) -> Self;
+    fn lerp(&self, other: &Self, amount: T) -> Self;
+    fn normalize_self(&mut self);
+    fn normalize_self_to(&mut self, magnitude: T);
+    fn lerp_self(&mut self, other: &Self, amount: T);
 }
 
 /// Vectors with orderable components
 pub trait OrdVec<T,Slice,BV>: Vec<T,Slice> {
-    pub fn lt_s(&self, value: T) -> BV;
-    pub fn le_s(&self, value: T) -> BV;
-    pub fn ge_s(&self, value: T) -> BV;
-    pub fn gt_s(&self, value: T) -> BV;
+    fn lt_s(&self, value: T) -> BV;
+    fn le_s(&self, value: T) -> BV;
+    fn ge_s(&self, value: T) -> BV;
+    fn gt_s(&self, value: T) -> BV;
 
-    pub fn lt_v(&self, other: &Self) -> BV;
-    pub fn le_v(&self, other: &Self) -> BV;
-    pub fn ge_v(&self, other: &Self) -> BV;
-    pub fn gt_v(&self, other: &Self) -> BV;
+    fn lt_v(&self, other: &Self) -> BV;
+    fn le_v(&self, other: &Self) -> BV;
+    fn ge_v(&self, other: &Self) -> BV;
+    fn gt_v(&self, other: &Self) -> BV;
 
-    pub fn min_s(&self, other: T) -> Self;
-    pub fn max_s(&self, other: T) -> Self;
-    pub fn clamp_s(&self, mn: T, mx: T) -> Self;
+    fn min_s(&self, other: T) -> Self;
+    fn max_s(&self, other: T) -> Self;
+    fn clamp_s(&self, mn: T, mx: T) -> Self;
 
-    pub fn min_v(&self, other: &Self) -> Self;
-    pub fn max_v(&self, other: &Self) -> Self;
-    pub fn clamp_v(&self, mn: &Self, mx: &Self) -> Self;
+    fn min_v(&self, other: &Self) -> Self;
+    fn max_v(&self, other: &Self) -> Self;
+    fn clamp_v(&self, mn: &Self, mx: &Self) -> Self;
 
-    pub fn comp_min(&self) -> T;
-    pub fn comp_max(&self) -> T;
+    fn comp_min(&self) -> T;
+    fn comp_max(&self) -> T;
 }
 
 /// Vectors with components that can be tested for equality
 pub trait EqVec<T,Slice,BV>: Eq {
-    pub fn eq_s(&self, value: T) -> BV;
-    pub fn ne_s(&self, value: T) -> BV;
-    pub fn eq_v(&self, other: &Self) -> BV;
-    pub fn ne_v(&self, other: &Self) -> BV;
+    fn eq_s(&self, value: T) -> BV;
+    fn ne_s(&self, value: T) -> BV;
+    fn eq_v(&self, other: &Self) -> BV;
+    fn ne_v(&self, other: &Self) -> BV;
 }
 
 /// Vectors with boolean components
 pub trait BoolVec<Slice>: Vec<bool,Slice> + Not<Self> {
-    pub fn any(&self) -> bool;
-    pub fn all(&self) -> bool;
+    fn any(&self) -> bool;
+    fn all(&self) -> bool;
 }
 
 #[deriving(Clone, Eq)]
@@ -132,13 +132,13 @@ pub type Vec2u64 = Vec2<u64>;
 pub type Vec2b   = Vec2<bool>;
 
 pub trait ToVec2<T> {
-    pub fn to_vec2(&self) -> Vec2<T>;
+    fn to_vec2(&self) -> Vec2<T>;
 }
 
 pub trait AsVec2<T> {
-    pub fn as_vec2<'a>(&'a self) -> &'a Vec2<T>;
-    pub fn as_mut_vec2<'a>(&'a mut self) -> &'a mut Vec2<T>;
-    pub fn with_vec2<'a>(&'a self, f: &fn(&'a Vec2<T>) -> Vec2<T>) -> Self;
+    fn as_vec2<'a>(&'a self) -> &'a Vec2<T>;
+    fn as_mut_vec2<'a>(&'a mut self) -> &'a mut Vec2<T>;
+    fn with_vec2<'a>(&'a self, f: &fn(&'a Vec2<T>) -> Vec2<T>) -> Self;
 }
 
 impl_dimensioned!(Vec2, T, 2)
@@ -764,13 +764,13 @@ pub type Vec3u64 = Vec3<u64>;
 pub type Vec3b   = Vec3<bool>;
 
 pub trait ToVec3<T> {
-    pub fn to_vec3(&self) -> Vec3<T>;
+    fn to_vec3(&self) -> Vec3<T>;
 }
 
 pub trait AsVec3<T> {
-    pub fn as_vec3<'a>(&'a self) -> &'a Vec3<T>;
-    pub fn as_mut_vec3<'a>(&'a mut self) -> &'a mut Vec3<T>;
-    pub fn with_vec3<'a>(&'a self, f: &fn(&'a Vec3<T>) -> Vec3<T>) -> Self;
+    fn as_vec3<'a>(&'a self) -> &'a Vec3<T>;
+    fn as_mut_vec3<'a>(&'a mut self) -> &'a mut Vec3<T>;
+    fn with_vec3<'a>(&'a self, f: &fn(&'a Vec3<T>) -> Vec3<T>) -> Self;
 }
 
 impl_dimensioned!(Vec3, T, 3)
@@ -1470,13 +1470,13 @@ pub type Vec4u64 = Vec4<u64>;
 pub type Vec4b   = Vec4<bool>;
 
 pub trait ToVec4<T> {
-    pub fn to_vec4(&self) -> Vec4<T>;
+    fn to_vec4(&self) -> Vec4<T>;
 }
 
 pub trait AsVec4<T> {
-    pub fn as_vec4<'a>(&'a self) -> &'a Vec4<T>;
-    pub fn as_mut_vec4<'a>(&'a mut self) -> &'a mut Vec4<T>;
-    pub fn with_vec4<'a>(&'a self, f: &fn(&'a Vec4<T>) -> Vec4<T>) -> Self;
+    fn as_vec4<'a>(&'a self) -> &'a Vec4<T>;
+    fn as_mut_vec4<'a>(&'a mut self) -> &'a mut Vec4<T>;
+    fn with_vec4<'a>(&'a self, f: &fn(&'a Vec4<T>) -> Vec4<T>) -> Self;
 }
 
 impl_dimensioned!(Vec4, T, 4)

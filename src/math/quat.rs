@@ -39,7 +39,7 @@ impl_swap_components!(Quat)
 impl_approx!(Quat { s, v })
 
 pub trait ToQuat<T> {
-    pub fn to_quat(&self) -> Quat<T>;
+    fn to_quat(&self) -> Quat<T>;
 }
 
 impl<T> Quat<T> {

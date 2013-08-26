@@ -35,14 +35,14 @@ pub trait Point<T, Vec, Ray>: Eq
                             + Mul<Vec, Self>
                             + ApproxEq<T>
                             + ToStr {
-    pub fn translate_v(&self, offset: &Vec) -> Self;
-    pub fn scale_s(&self, factor: T) -> Self;
-    pub fn scale_v(&self, factor: &Vec) -> Self;
-    pub fn displacement(&self, other: &Self) -> Vec;
-    pub fn distance2(&self, other: &Self) -> T;
-    pub fn distance(&self, other: &Self) -> T;
-    pub fn direction(&self, other: &Self) -> Vec;
-    pub fn ray_to(&self, other: &Self) -> Ray;
+    fn translate_v(&self, offset: &Vec) -> Self;
+    fn scale_s(&self, factor: T) -> Self;
+    fn scale_v(&self, factor: &Vec) -> Self;
+    fn displacement(&self, other: &Self) -> Vec;
+    fn distance2(&self, other: &Self) -> T;
+    fn distance(&self, other: &Self) -> T;
+    fn direction(&self, other: &Self) -> Vec;
+    fn ray_to(&self, other: &Self) -> Ray;
 }
 
 /// A two-dimensional coordinate vector
@@ -56,8 +56,8 @@ impl_swap_components!(Point2)
 impl_approx!(Point2 { x, y })
 
 pub trait AsPoint2<T> {
-    pub fn as_point2<'a>(&'a self) -> &'a Point2<T>;
-    pub fn as_mut_point2<'a>(&'a mut self) -> &'a mut Point2<T>;
+    fn as_point2<'a>(&'a self) -> &'a Point2<T>;
+    fn as_mut_point2<'a>(&'a mut self) -> &'a mut Point2<T>;
 }
 
 impl<T:Clone + Num> AsPoint2<T> for Vec2<T> {
@@ -209,8 +209,8 @@ impl_swap_components!(Point3)
 impl_approx!(Point3 { x, y, z })
 
 pub trait AsPoint3<T> {
-    pub fn as_point3<'a>(&'a self) -> &'a Point3<T>;
-    pub fn as_mut_point3<'a>(&'a mut self) -> &'a mut Point3<T>;
+    fn as_point3<'a>(&'a self) -> &'a Point3<T>;
+    fn as_mut_point3<'a>(&'a mut self) -> &'a mut Point3<T>;
 }
 
 impl<T:Clone + Num> AsPoint3<T> for Vec3<T> {

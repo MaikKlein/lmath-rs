@@ -40,10 +40,10 @@ use math::{Point3, Ray3};
 pub trait Rotation2<T>: Eq
                       + ApproxEq<T>
                       + ToMat2<T> {
-    pub fn rotate_point2(&self, point: Point2<T>) -> Point2<T>;
-    pub fn rotate_vec2(&self, vec: &Vec2<T>) -> Vec2<T>;
-    pub fn rotate_ray2(&self, ray: &Ray2<T>) -> Ray2<T>;
-    pub fn to_rotation_mat2(&self) -> RotationMat2<T>;
+    fn rotate_point2(&self, point: Point2<T>) -> Point2<T>;
+    fn rotate_vec2(&self, vec: &Vec2<T>) -> Vec2<T>;
+    fn rotate_ray2(&self, ray: &Ray2<T>) -> Ray2<T>;
+    fn to_rotation_mat2(&self) -> RotationMat2<T>;
 }
 
 /// A three-dimensional rotation
@@ -52,10 +52,10 @@ pub trait Rotation3<T>: Eq
                      + ToMat3<T>
                      + ToMat4<T>
                      + ToQuat<T> {
-    pub fn rotate_point3(&self, point: Point3<T>) -> Point3<T>;
-    pub fn rotate_vec3(&self, vec: &Vec3<T>) -> Vec3<T>;
-    pub fn rotate_ray3(&self, ray: &Ray3<T>) -> Ray3<T>;
-    pub fn to_rotation_mat3(&self) -> RotationMat3<T>;
+    fn rotate_point3(&self, point: Point3<T>) -> Point3<T>;
+    fn rotate_vec3(&self, vec: &Vec3<T>) -> Vec3<T>;
+    fn rotate_ray3(&self, ray: &Ray3<T>) -> Ray3<T>;
+    fn to_rotation_mat3(&self) -> RotationMat3<T>;
 }
 
 /// A two-dimensional rotation matrix.
@@ -232,7 +232,7 @@ impl_swap_components!(Euler)
 impl_approx!(Euler { pitch, yaw, roll })
 
 pub trait ToEuler<T> {
-    pub fn to_euler(&self) -> Euler<T>;
+    fn to_euler(&self) -> Euler<T>;
 }
 
 impl<T:Float> Euler<T> {
@@ -327,7 +327,7 @@ pub struct AxisAngle<T> {
 impl_approx!(AxisAngle { axis, angle })
 
 pub trait ToAxisAngle<T> {
-    pub fn to_axis_angle(&self) -> AxisAngle<T>;
+    fn to_axis_angle(&self) -> AxisAngle<T>;
 }
 
 impl<T:Float> AxisAngle<T> {

@@ -21,42 +21,42 @@ use math::{Vec2, Vec3, Vec4};
 
 pub trait Mat<T,Vec,Slice>: Dimensioned<Vec,Slice>
                           + SwapComponents {
-    pub fn c<'a>(&'a self, c: uint) -> &'a Vec;
-    pub fn r(&self, r: uint) -> Vec;
-    pub fn cr<'a>(&'a self, c: uint, r: uint) -> &'a T;
-    pub fn mut_c<'a>(&'a mut self, c: uint) -> &'a mut Vec;
-    pub fn mut_cr<'a>(&'a mut self, c: uint, r: uint) -> &'a mut T;
-    pub fn swap_c(&mut self, a: uint, b: uint);
-    pub fn swap_r(&mut self, a: uint, b: uint);
-    pub fn swap_cr(&mut self, a: (uint, uint), b: (uint, uint));
-    pub fn transpose(&self) -> Self;
-    pub fn transpose_self(&mut self);
+    fn c<'a>(&'a self, c: uint) -> &'a Vec;
+    fn r(&self, r: uint) -> Vec;
+    fn cr<'a>(&'a self, c: uint, r: uint) -> &'a T;
+    fn mut_c<'a>(&'a mut self, c: uint) -> &'a mut Vec;
+    fn mut_cr<'a>(&'a mut self, c: uint, r: uint) -> &'a mut T;
+    fn swap_c(&mut self, a: uint, b: uint);
+    fn swap_r(&mut self, a: uint, b: uint);
+    fn swap_cr(&mut self, a: (uint, uint), b: (uint, uint));
+    fn transpose(&self) -> Self;
+    fn transpose_self(&mut self);
 }
 
 pub trait NumMat<T,Vec,Slice>: Mat<T,Vec,Slice> + Neg<Self> {
-    pub fn mul_s(&self, value: T) -> Self;
-    pub fn mul_v(&self, vec: &Vec) -> Vec;
-    pub fn add_m(&self, other: &Self) -> Self;
-    pub fn sub_m(&self, other: &Self) -> Self;
-    pub fn mul_m(&self, other: &Self) -> Self;
-    pub fn mul_self_s(&mut self, value: T);
-    pub fn add_self_m(&mut self, other: &Self);
-    pub fn sub_self_m(&mut self, other: &Self);
-    pub fn dot(&self, other: &Self) -> T;
-    pub fn determinant(&self) -> T;
-    pub fn trace(&self) -> T;
-    pub fn to_identity(&mut self);
-    pub fn to_zero(&mut self);
+    fn mul_s(&self, value: T) -> Self;
+    fn mul_v(&self, vec: &Vec) -> Vec;
+    fn add_m(&self, other: &Self) -> Self;
+    fn sub_m(&self, other: &Self) -> Self;
+    fn mul_m(&self, other: &Self) -> Self;
+    fn mul_self_s(&mut self, value: T);
+    fn add_self_m(&mut self, other: &Self);
+    fn sub_self_m(&mut self, other: &Self);
+    fn dot(&self, other: &Self) -> T;
+    fn determinant(&self) -> T;
+    fn trace(&self) -> T;
+    fn to_identity(&mut self);
+    fn to_zero(&mut self);
 }
 
 pub trait FloatMat<T,Vec,Slice>: NumMat<T,Vec,Slice> {
-    pub fn inverse(&self) -> Option<Self>;
-    pub fn invert_self(&mut self);
-    pub fn is_identity(&self) -> bool;
-    pub fn is_diagonal(&self) -> bool;
-    pub fn is_rotated(&self) -> bool;
-    pub fn is_symmetric(&self) -> bool;
-    pub fn is_invertible(&self) -> bool;
+    fn inverse(&self) -> Option<Self>;
+    fn invert_self(&mut self);
+    fn is_identity(&self) -> bool;
+    fn is_diagonal(&self) -> bool;
+    fn is_rotated(&self) -> bool;
+    fn is_symmetric(&self) -> bool;
+    fn is_invertible(&self) -> bool;
 }
 
 #[deriving(Clone, Eq)]
@@ -78,7 +78,7 @@ impl_dimensioned!(Mat2, Vec2<T>, 2)
 impl_approx!(Mat3 { x, y, z })
 
 pub trait ToMat2<T> {
-    pub fn to_mat2(&self) -> Mat2<T>;
+    fn to_mat2(&self) -> Mat2<T>;
 }
 
 impl<T> Mat2<T> {
@@ -542,7 +542,7 @@ impl_dimensioned!(Mat3, Vec3<T>, 3)
 impl_approx!(Mat2 { x, y })
 
 pub trait ToMat3<T> {
-    pub fn to_mat3(&self) -> Mat3<T>;
+    fn to_mat3(&self) -> Mat3<T>;
 }
 
 impl<T> Mat3<T> {
@@ -1114,7 +1114,7 @@ impl_dimensioned!(Mat4, Vec4<T>, 4)
 impl_approx!(Mat4 { x, y, z, w })
 
 pub trait ToMat4<T> {
-    pub fn to_mat4(&self) -> Mat4<T>;
+    fn to_mat4(&self) -> Mat4<T>;
 }
 
 impl<T> Mat4<T> {
@@ -1364,10 +1364,10 @@ impl<T:Clone + Float> FloatMat<T,Vec4<T>,[Vec4<T>,..4]> for Mat4<T> {
             let mut A = self.clone();
             let mut I = Mat4::identity::<T>();
 
-            for uint::range(0, 4) |j| {
+            for j in range(0, 4) {
                 // Find largest element in col j
                 let mut i1 = j;
-                for uint::range(j + 1, 4) |i| {
+                for i in range(j + 1, 4) {
                     if A.cr(j, i).abs() > A.cr(j, i1).abs() {
                         i1 = i;
                     }
@@ -1385,7 +1385,7 @@ impl<T:Clone + Float> FloatMat<T,Vec4<T>,[Vec4<T>,..4]> for Mat4<T> {
 
                 // Eliminate off-diagonal elems in col j of A,
                 // doing identical ops to I
-                for uint::range(0, 4) |i| {
+                for i in range(0, 4) {
                     if i != j {
                         let ij_mul_aij = I.c(j).mul_s(A.cr(i, j).clone());
                         let aj_mul_aij = A.c(j).mul_s(A.cr(i, j).clone());

@@ -41,14 +41,14 @@ pub mod point;
 pub mod ray;
 
 pub trait Dimensioned<T,Slice> {
-    pub fn i<'a>(&'a self, i: uint) -> &'a T;
-    pub fn mut_i<'a>(&'a mut self, i: uint) -> &'a mut T;
-    pub fn as_slice<'a>(&'a self) -> &'a Slice;
-    pub fn as_mut_slice<'a>(&'a mut self) -> &'a mut Slice;
+    fn i<'a>(&'a self, i: uint) -> &'a T;
+    fn mut_i<'a>(&'a mut self, i: uint) -> &'a mut T;
+    fn as_slice<'a>(&'a self) -> &'a Slice;
+    fn as_mut_slice<'a>(&'a mut self) -> &'a mut Slice;
 }
 
 pub trait SwapComponents {
-    pub fn swap(&mut self, a: uint, b: uint);
+    fn swap(&mut self, a: uint, b: uint);
 }
 
 // `Dimensioned` impls for primitive numeric types
